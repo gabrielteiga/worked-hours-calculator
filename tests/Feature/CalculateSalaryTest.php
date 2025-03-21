@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class JobHourSalaryTest extends TestCase
+class CalculateSalaryTest extends TestCase
 {
     /**
      * @test
@@ -14,11 +14,11 @@ class JobHourSalaryTest extends TestCase
     public function CalculateSalaryUsingWorkedHoursAndSalaryPerHour(float $workedHour, float $salaryPerHour, float $expectedResult, int $expectedHttpCode): void
     {
         $request = [
-            'workedHour' => $workedHour,
+            'workedHours' => $workedHour,
             'salaryPerHour' => $salaryPerHour,
         ];
 
-        $response = $this->post("/api/v1/calculator", $request);
+        $response = $this->postJson("/api/v1/calculator", $request);
 
         $response->assertStatus($expectedHttpCode)
                 ->assertJson([
